@@ -1,0 +1,185 @@
+body {
+    font-family: Gill Sans, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.container {
+    display: flex;
+    width: 800px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    height: 90vh;
+}
+
+.image-section {
+    background-color: #000000;
+    color: #adadad;
+    width: 30%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.product-image {
+    width: 100%;
+    height: 70%;
+    border: 1px solid #000;
+    overflow: hidden;
+}
+.product-image img {
+    width: 100%;
+    height: 80%;
+    object-fit: contain;
+}
+ .product-description{
+  width: 100%;
+  height: 30%;
+ }
+ .product-description p{
+   font-size: small;
+   padding: 20px;
+ }
+
+.form-section {
+    background-color: #fff;
+    padding: 20px; 
+    width: 70%;
+    position: relative;
+}
+
+.close-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.form-header {
+    margin: 20px 0px;
+    font-size: 20px;
+    color: #6e6e6e;
+}
+.alert-message {
+    margin: 0;
+    font-size: 11px;
+    color: red;
+    padding: 2px;
+}
+.mandatory {
+    color: red;
+}
+.form-register {
+    margin: 50px;
+}
+.form-group {
+    margin-top: 15px; 
+    flex: 1; 
+}
+
+.form-row {
+    display: flex;
+    gap: 20px; 
+    padding: 5px 0px;
+}
+.file-row {
+    padding: 15px 0px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: smaller;
+}
+
+input[type='text'],
+input[type='date'],
+select {
+    width: 95%;
+    padding: 8px; 
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 12px; 
+    box-sizing: border-box; 
+}
+
+input[type='file'] {
+    display: none;
+}
+
+.file-upload {
+    position: relative;
+    border: 2px dashed #ccc;
+    text-align: center;
+    cursor: pointer;
+    height: 70px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-radius: 5px;
+    margin: 0;
+}
+
+.file-upload-message {
+    color: #999;
+}
+
+.file-upload-message span {
+    color: #e60000;
+    text-decoration: underline;
+}
+
+button {
+    background-color: #e60000;
+    color: #fff;
+    padding: 15px; 
+    border: none;
+    border-radius: 25px;
+    cursor: pointer;
+    width: 30%;
+    font-size: 16px;
+}
+
+button:hover {
+    background-color: #cc0000;
+}
+@media only screen and (max-width: 768px) {
+   
+    .container {
+        flex-direction: column; 
+        width: 100%; 
+    }
+    .image-section,
+    .form-section {
+        width: 100%; 
+    }
+    .image-section p {
+        font-size: 12px; 
+    }
+    .form-group {
+        margin-bottom: 10px; 
+    }
+    .form-row {
+        flex-direction: column;
+    }
+    .form-group label {
+        margin-bottom: 3px; 
+    }
+    input[type='text'],
+    input[type='date'],
+    select {
+        font-size: 14px; 
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 992px) {
+    .container {
+        width: 90%; 
+    }
+}

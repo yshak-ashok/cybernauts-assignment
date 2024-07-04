@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Product Registration Form</title>
+        <link rel="stylesheet" href="/assets/css/style.css" />
+    </head>
+    <body>
+        <div class="container">
+            <div class="image-section">
+                <div class="product-image">
+                    <img src="/assets/Image/Product.jpg" alt="Product Image" />
+                </div>
+                <div class="product-description">
+                    <p>The Prism range of kettles and toasters is made for those who don't settle for the ordinary.</p>
+                </div>
+            </div>
+            <div class="form-section">
+                <div class="close-button">×</div>
+                <div class="form-register">
+                    <p class="form-header">Register your product</p>
+                    <form action="/register" method="post" id="registerProduct" enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="category">Category <span class="mandatory">*</span></label>
+                                <select id="category" name="category">
+                                    <option value="" disabled selected>Select Category</option>
+                                    <option value="kettle">Kettle</option>
+                                </select>
+                                <p id="categoryError" class="alert-message"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="model">Model <span class="mandatory">*</span></label>
+                                <select id="model" name="model">
+                                    <option value="" disabled selected>Select Model</option>
+                                    <option value="model1">Model 1</option>
+                                </select>
+                                <p id="modelError" class="alert-message"></p>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="serial-number">Serial number <span class="mandatory">*</span></label>
+                                <input type="text" id="serial-number" name="serial-number" />
+                                <p id="serailNumberError" class="alert-message"></p>
+                            </div>
+                            <div class="form-group">
+                                <label for="date-of-invoice">Date of Invoice <span class="mandatory">*</span></label>
+                                <input type="date" id="date-of-invoice" name="date-of-invoice" />
+                                <p id="invoiceDateError" class="alert-message"></p>
+                            </div>
+                        </div>
+                        <div class="file-row">
+                            <label for="upload-file">Upload File <span class="mandatory">*</span></label>
+                            <div class="form-group file-upload">
+                                <input type="file" id="upload-file" name="upload-file" />
+                                <div class="file-upload-message" id="file-upload-message">
+                                    Drag files here or <span>browse</span>
+                                </div>
+                            </div>
+                            <p id="fileError" class="alert-message"></p>
+                        </div>
+                        <button type="submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <script src="/assets/js/registerValidation.js"></script>
+        <script>
+            document.getElementById('registerProduct').addEventListener('submit', async (event) => {
+                event.preventDefault();
+
+                const category = document.getElementById('category').value;
+                const model = document.getElementById('model').value;
+                const serialNumber = document.getElementById('serial-number').value;
+                const invoiceDate = document.getElementById('date-of-invoice').value;
+                const fileInput = document.getElementById('upload-file');
+                const file = fileInput.files[0];
+
+                const formData = new FormData();
+                formData.append('category', category);
+                formData.append('model', model);
+                formData.append('serialNumber', serialNumber);
+                formData.append('invoiceDate', invoiceDate);
+                formData.append('file', file);
+
+                const registerValidate = registerValidation();
+                if (registerValidate) {
+                    try {
+                        const response = await fetch('/register', {
+                            method: 'POST',
+                            body: formData,
+                        });
+                        const data = await response.json();
+                        if (data) {
+                            window.alert('Registration successful!');
+                            document.getElementById('category').value = '';
+                            document.getElementById('model').value = '';
+                            document.getElementById('serial-number').value = '';
+                            document.getElementById('date-of-invoice').value = '';
+                            document.getElementById('upload-file').value = '';
+                            document.getElementById('file-upload-message').textContent = 'No file chosen';
+                        } else {
+                            window.alert('Registration failed. Please try again.');
+                        }
+                        console.log('server response:', data);
+                    } catch (error) {
+                        console.error('Error:', error);
+                    }
+                }
+            });
+
+            document.querySelector('.file-upload').addEventListener('click', function () {
+                document.getElementById('upload-file').click();
+            });
+
+            document.getElementById('upload-file').addEventListener('change', function (event) {
+                const fileName = event.target.files[0].name;
+                document.getElementById('file-upload-message').textContent = fileName;
+            });
+        </script>
+    </body>
+</html>
